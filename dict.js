@@ -26,16 +26,12 @@ const server = http.createServer((req, res) => {
       res.end(body)
     }
   } else if (req.method === "PUT") {
-    console.log(req.method, "at", req.url)
     
-    
-    textBody(req, res, (err, reqBody) => {
-      resources[req.url] = reqBody;
-      body = resources[req.url];
-      
-      res.setHeader('Content-Type', 'text/plain');
-      res.statusCode = 201;
-      res.end(reqBody)
+    res.statusCode = 201;
+    textBody(req, res, (err, requestBody) => {
+      resources[req.url] = requestBody;
+      const responseBody = resources[req.url];
+      res.end(responseBody)
     })
     
   }
